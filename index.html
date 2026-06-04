@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nursing Informatics ✿ Finals Quiz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pink:#ff8fb1;
+    --pink-soft:#ffd6e3;
+    --lilac:#c9b6ff;
+    --lilac-soft:#e8def9;
+    --mint:#9ee6c9;
+    --mint-soft:#d6f5e8;
+    --cream:#fff7fb;
+    --butter:#fff2c9;
+    --ink:#6b4c63;
+    --ink-soft:#9a7e92;
+    --green:#3fb98a;
+    --red:#ff7a8a;
+    --shadow:rgba(255,143,177,.35);
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Quicksand',sans-serif;
+    background:
+      radial-gradient(circle at 12% 18%, #ffe6f0 0, transparent 42%),
+      radial-gradient(circle at 88% 12%, #e4dcff 0, transparent 40%),
+      radial-gradient(circle at 80% 85%, #d6f5e8 0, transparent 45%),
+      radial-gradient(circle at 18% 90%, #fff2c9 0, transparent 40%),
+      var(--cream);
+    min-height:100vh;
+    color:var(--ink);
+    padding:24px 14px 60px;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .wrap{max-width:640px;margin:0 auto;}
+
+  /* ---- Header ---- */
+  .topcard{
+    background:#fff;
+    border:3px solid var(--pink-soft);
+    border-radius:32px;
+    padding:26px 24px 22px;
+    text-align:center;
+    box-shadow:0 14px 0 -4px var(--shadow), 0 20px 40px -18px var(--shadow);
+    position:relative;
+    overflow:hidden;
+  }
+  .topcard::before{
+    content:"";position:absolute;inset:0;
+    background:repeating-linear-gradient(45deg,transparent 0 18px,rgba(255,214,227,.18) 18px 20px);
+    pointer-events:none;
+  }
+  h1{
+    font-family:'Baloo 2',cursive;
+    font-size:clamp(26px,7vw,38px);
+    line-height:1.05;
+    color:var(--pink);
+    text-shadow:2px 2px 0 #fff,4px 4px 0 var(--pink-soft);
+    position:relative;
+  }
+  .sub{font-weight:600;color:var(--ink-soft);margin-top:6px;font-size:14px;position:relative;}
+  .badges{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:14px;position:relative;}
+  .badge{
+    font-family:'Baloo 2';font-weight:600;font-size:12px;
+    padding:5px 12px;border-radius:20px;color:#fff;
+  }
+  .b1{background:var(--pink);}
+  .b2{background:var(--lilac);}
+  .b3{background:var(--mint);}
+  .b4{background:#ffc04d;}
+
+  /* ---- Progress ---- */
+  .progress-shell{margin:18px auto 14px;position:relative;}
+  .pbar-bg{height:18px;background:#fff;border:3px solid var(--lilac-soft);border-radius:30px;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.05);}
+  .pbar-fill{height:100%;width:0;border-radius:30px;background:linear-gradient(90deg,var(--pink),var(--lilac),var(--mint));transition:width .45s cubic-bezier(.34,1.56,.64,1);}
+  .pmeta{display:flex;justify-content:space-between;font-weight:700;font-size:13px;color:var(--ink-soft);margin-top:8px;padding:0 4px;}
+  .pmeta .score{color:var(--green);}
+
+  /* ---- Question Card ---- */
+  .card{
+    background:#fff;border:3px solid var(--pink-soft);border-radius:28px;
+    padding:24px 22px 26px;margin-top:14px;
+    box-shadow:0 12px 0 -4px var(--shadow),0 22px 40px -22px var(--shadow);
+    animation:pop .4s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes pop{0%{transform:scale(.94) translateY(10px);opacity:0;}100%{transform:scale(1) translateY(0);opacity:1;}}
+  .qtop{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .qnum{
+    font-family:'Baloo 2';font-weight:800;font-size:15px;color:#fff;
+    background:var(--lilac);padding:5px 14px;border-radius:18px;white-space:nowrap;
+  }
+  .qchap{font-weight:700;font-size:11px;color:var(--ink-soft);background:var(--lilac-soft);padding:5px 11px;border-radius:16px;}
+  .qtext{font-family:'Baloo 2';font-weight:600;font-size:19px;line-height:1.35;color:var(--ink);margin-bottom:18px;}
+
+  .opts{display:flex;flex-direction:column;gap:11px;}
+  .opt{
+    display:flex;align-items:center;gap:12px;
+    background:var(--cream);border:3px solid var(--lilac-soft);
+    border-radius:18px;padding:13px 15px;cursor:pointer;
+    font-weight:600;font-size:15px;color:var(--ink);
+    transition:transform .15s,border-color .15s,background .15s;
+    text-align:left;
+  }
+  .opt:hover{transform:translateY(-2px);border-color:var(--lilac);background:#fff;}
+  .opt .letter{
+    flex:none;width:30px;height:30px;border-radius:50%;
+    display:grid;place-items:center;font-family:'Baloo 2';font-weight:700;
+    background:#fff;border:2px solid var(--lilac);color:var(--lilac);font-size:14px;
+  }
+  .opt.correct{border-color:var(--green);background:var(--mint-soft);}
+  .opt.correct .letter{background:var(--green);border-color:var(--green);color:#fff;}
+  .opt.wrong{border-color:var(--red);background:#ffe7ea;}
+  .opt.wrong .letter{background:var(--red);border-color:var(--red);color:#fff;}
+  .opt.locked{cursor:default;pointer-events:none;}
+  .opt.dim{opacity:.5;}
+
+  .feedback{
+    margin-top:16px;border-radius:18px;padding:14px 16px;font-weight:700;
+    font-size:15px;display:none;animation:pop .35s ease;
+  }
+  .feedback.show{display:block;}
+  .feedback.yay{background:var(--mint-soft);color:var(--green);border:2px dashed var(--green);}
+  .feedback.nay{background:#ffe7ea;color:var(--red);border:2px dashed var(--red);}
+
+  .next-btn{
+    margin-top:18px;width:100%;border:none;cursor:pointer;
+    font-family:'Baloo 2';font-weight:700;font-size:18px;color:#fff;
+    background:var(--pink);padding:15px;border-radius:20px;
+    box-shadow:0 6px 0 #e76f93;transition:transform .12s,box-shadow .12s;
+    display:none;
+  }
+  .next-btn.show{display:block;animation:pop .3s ease;}
+  .next-btn:active{transform:translateY(4px);box-shadow:0 2px 0 #e76f93;}
+
+  /* ---- Result ---- */
+  .result{display:none;text-align:center;}
+  .result.show{display:block;animation:pop .5s cubic-bezier(.34,1.56,.64,1);}
+  .result .emoji{font-size:74px;line-height:1;animation:bounce 1.4s ease-in-out infinite;}
+  @keyframes bounce{0%,100%{transform:translateY(0) rotate(-4deg);}50%{transform:translateY(-14px) rotate(4deg);}}
+  .result h2{font-family:'Baloo 2';font-size:32px;color:var(--pink);margin:10px 0 4px;text-shadow:2px 2px 0 var(--pink-soft);}
+  .scorebig{font-family:'Baloo 2';font-weight:800;font-size:56px;color:var(--lilac);margin:6px 0;}
+  .result p{font-weight:600;color:var(--ink-soft);font-size:16px;margin-bottom:6px;}
+  .restart{
+    margin-top:22px;border:none;cursor:pointer;font-family:'Baloo 2';font-weight:700;
+    font-size:18px;color:#fff;background:var(--mint);padding:15px 32px;border-radius:22px;
+    box-shadow:0 6px 0 #5ec8a0;transition:transform .12s,box-shadow .12s;
+  }
+  .restart:active{transform:translateY(4px);box-shadow:0 2px 0 #5ec8a0;}
+
+  .footer{text-align:center;margin-top:26px;font-size:12px;font-weight:600;color:var(--ink-soft);opacity:.8;}
+  .floaty{position:fixed;font-size:22px;pointer-events:none;opacity:.55;animation:float 9s ease-in-out infinite;z-index:0;}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(0);}50%{transform:translateY(-22px) rotate(12deg);}}
+</style>
+</head>
+<body>
+  <span class="floaty" style="top:8%;left:5%;">🌸</span>
+  <span class="floaty" style="top:20%;right:6%;animation-delay:1.5s;">⭐</span>
+  <span class="floaty" style="bottom:14%;left:8%;animation-delay:3s;">💖</span>
+  <span class="floaty" style="bottom:28%;right:7%;animation-delay:2.2s;">✨</span>
+
+  <div class="wrap">
+    <div class="topcard">
+      <h1>Nursing Informatics</h1>
+      <div class="sub">✿ Finals Reviewer Quiz ✿ 100 Questions ✿</div>
+      <div class="badges">
+        <span class="badge b1">Decision Support</span>
+        <span class="badge b2">AI in Healthcare</span>
+        <span class="badge b3">Leadership</span>
+        <span class="badge b4">Ethics &amp; Legal</span>
+      </div>
+    </div>
+
+    <div class="progress-shell" id="progressShell">
+      <div class="pbar-bg"><div class="pbar-fill" id="pbar"></div></div>
+      <div class="pmeta">
+        <span id="pcount">Question 1 of 100</span>
+        <span class="score">⭐ Score: <span id="pscore">0</span></span>
+      </div>
+    </div>
+
+    <div id="quizArea"></div>
+
+    <div class="result" id="result">
+      <div class="emoji" id="resEmoji">🎉</div>
+      <h2 id="resTitle">All done!</h2>
+      <div class="scorebig"><span id="resScore">0</span>/100</div>
+      <p id="resMsg"></p>
+      <p id="resPct"></p>
+      <button class="restart" onclick="restart()">↺ Play Again</button>
+    </div>
+
+    <div class="footer">Made with 💕 from your reviewer · ABONG, DEREQUITO, DIVINAGRACIA, NG, LOPEZ</div>
+  </div>
+
+<script>
+const QUESTIONS = [
+  // ===== CHAPTER 1: DECISION SUPPORT SYSTEMS =====
+  {c:"Ch.1 · DSS", q:"What is analytics best described as?", o:["The science of analysis","A type of nursing diagnosis","A patient billing tool","A medication chart"], a:0},
+  {c:"Ch.1 · DSS", q:"Healthcare analytics incorporates information from a variety of systems primarily through what?", o:["Business Intelligence (BI)","Verbal handoff reports","Paper charts only","Patient interviews"], a:0},
+  {c:"Ch.1 · DSS", q:"What does EHR stand for?", o:["Emergency Health Reports","Electronic Health Records","Enterprise Health Resources","Electronic Hospital Registry"], a:1},
+  {c:"Ch.1 · DSS", q:"In healthcare analytics, ADT systems refer to:", o:["Admission, Discharge, and Transfer","Analysis, Data, and Treatment","Acute Diagnostic Testing","Advanced Drug Therapy"], a:0},
+  {c:"Ch.1 · DSS", q:"What does ERP stand for?", o:["Emergency Response Plan","Electronic Records Protocol","Enterprise Resource Planning","Essential Resource Program"], a:2},
+  {c:"Ch.1 · DSS", q:"Analytic applications express data using visual tools such as:", o:["Scorecards and dashboards","Stethoscopes","Index cards","Whiteboards only"], a:0},
+  {c:"Ch.1 · DSS", q:"Which is a static view of data at a point in time showing what happened?", o:["A report","Analytics","A dashboard drill-down","Predictive model"], a:0},
+  {c:"Ch.1 · DSS", q:"Which provides a malleable view that can drill down to indicate WHY something is happening?", o:["A report","Analytics","A spreadsheet","A logbook"], a:1},
+  {c:"Ch.1 · DSS", q:"The phrase 'one version of the truth' is associated with:", o:["Reports","Analytics","Charts","Verbal orders"], a:1},
+  {c:"Ch.1 · DSS", q:"A typical report uses:", o:["Multi-phasic views from many systems","One data source, one view","Predictive modeling","Genetic algorithms"], a:1},
+  {c:"Ch.1 · DSS", q:"A Decision Support System is best defined as:", o:["A conceptual framework for decision making","A nursing care plan","A billing record","A type of EHR backup"], a:0},
+  {c:"Ch.1 · DSS", q:"DSS is designed to assist in problem solving with what type of problems?", o:["Fully structured problems","Semi-structured problems","Only mathematical problems","No problems at all"], a:1},
+  {c:"Ch.1 · DSS", q:"Which is a stated benefit of a Decision Support System?", o:["Increases medication errors","Reduces the risk of medication errors","Removes nurses from care","Eliminates documentation"], a:1},
+  {c:"Ch.1 · DSS", q:"Business Intelligence is based on the process of:", o:["Transforming data into information","Replacing physicians","Deleting old records","Hiring staff"], a:0},
+  {c:"Ch.1 · DSS", q:"What does KMS stand for?", o:["Key Medical Standards","Knowledge Management Systems","Knowledge Measurement Scale","Kept Medical Storage"], a:1},
+  {c:"Ch.1 · DSS", q:"Knowledge management is described as more of a:", o:["Methodology","Machine","Medication","Medical device"], a:0},
+  {c:"Ch.1 · DSS", q:"The DIKAR model includes data, information, knowledge, and:", o:["Action and results","Analysis and reports","Access and rules","Audit and review"], a:0},
+  {c:"Ch.1 · DSS", q:"Business Performance Management (BPM) is used to:", o:["Change behaviors related to achieving results","Diagnose diseases","Replace dashboards","Encrypt files"], a:0},
+  {c:"Ch.1 · DSS", q:"Predictive analytics uses what to predict occurrences and trends?", o:["Forecasting and simulation models","Paper surveys","Random guessing","Verbal estimates"], a:0},
+  {c:"Ch.1 · DSS", q:"The LACE model is used to predict patients who are at high risk for:", o:["Hospital readmission","Surgery cancellation","Insurance fraud","Allergic reaction"], a:0},
+  {c:"Ch.1 · DSS", q:"In the LACE model, the letter 'L' stands for:", o:["Lab results","Length of stay","Last visit","Level of care"], a:1},
+  {c:"Ch.1 · DSS", q:"In the LACE model, 'A' refers to:", o:["Acute admission through the emergency department","Allergy assessment","Annual checkup","Antibiotic alert"], a:0},
+  {c:"Ch.1 · DSS", q:"In the LACE model, 'C' stands for:", o:["Co-morbidities","Co-payment","Cardiac care","Consent"], a:0},
+  {c:"Ch.1 · DSS", q:"In the LACE model, 'E' refers to ED visits within the past:", o:["Six months","One week","Two years","One month"], a:0},
+  {c:"Ch.1 · DSS", q:"Which is NOT listed as a data source for healthcare analytics?", o:["Scheduling systems","Financial systems","Social media feeds","Laboratory applications"], a:2},
+
+  // ===== CHAPTER 2: AI IN HEALTHCARE =====
+  {c:"Ch.2 · AI", q:"Artificial Intelligence is a broad area of:", o:["Computer science","Pharmacology","Surgery","Accounting"], a:0},
+  {c:"Ch.2 · AI", q:"Which of these is included in the scope of AI?", o:["Reasoning and learning","Blood typing","Suturing","Casting fractures"], a:0},
+  {c:"Ch.2 · AI", q:"During the Turing Test, the interrogator attempts to determine:", o:["Which player is a computer and which is a human","The patient's diagnosis","The cost of care","The fastest typist"], a:0},
+  {c:"Ch.2 · AI", q:"ELIZA (1966) was an early:", o:["Psychotherapist simulation","Voice assistant","Search engine","Image generator"], a:0},
+  {c:"Ch.2 · AI", q:"PARRY (1972) was a chatbot that simulated:", o:["Paranoid schizophrenia","Depression","A pharmacist","A nurse"], a:0},
+  {c:"Ch.2 · AI", q:"ALICE (1995) was known as a:", o:["Natural language processing bot","Voice assistant","Robot surgeon","Spreadsheet tool"], a:0},
+  {c:"Ch.2 · AI", q:"Watson (2011) was developed by which company?", o:["IBM","Apple","Amazon","Google"], a:0},
+  {c:"Ch.2 · AI", q:"Siri (2011) is whose voice-activated assistant?", o:["Apple","Microsoft","Amazon","Google"], a:0},
+  {c:"Ch.2 · AI", q:"Alexa (2014) is the virtual assistant of:", o:["Amazon","Apple","Google","IBM"], a:0},
+  {c:"Ch.2 · AI", q:"Google Assistant was introduced in what year?", o:["2016","2011","2024","1995"], a:0},
+  {c:"Ch.2 · AI", q:"GPT-4.0 (2024) is associated with which organization?", o:["OpenAI","IBM","Apple","Amazon"], a:0},
+  {c:"Ch.2 · AI", q:"Machine Learning (ML) is a subset of:", o:["Artificial Intelligence","Deep learning only","Robotics","Statistics class"], a:0},
+  {c:"Ch.2 · AI", q:"Machine learning enables machines to:", o:["Improve with experience","Forget data","Work without data","Replace electricity"], a:0},
+  {c:"Ch.2 · AI", q:"Machine learning primarily uses what to learn from data?", o:["Statistical methods","Magic","Manual entry","Voice commands"], a:0},
+  {c:"Ch.2 · AI", q:"A clinical example of machine learning is:", o:["Predictive analytics identifying red alerts on vital signs","Manual chart filing","Bed making","Hand washing"], a:0},
+  {c:"Ch.2 · AI", q:"Deep learning is a subset of machine learning that uses:", o:["Neural networks with many layers","Paper forms","Single equations","Verbal reports"], a:0},
+  {c:"Ch.2 · AI", q:"Deep learning recognizes patterns in:", o:["Unstructured data","Only numbers","Empty data","Printed forms only"], a:0},
+  {c:"Ch.2 · AI", q:"A healthcare example of deep learning is:", o:["Image recognition for prescription verification","Counting bandages","Scheduling shifts","Mopping floors"], a:0},
+  {c:"Ch.2 · AI", q:"Chatbots are AI software that simulate a conversation in:", o:["Natural language","Binary code only","Sign language only","Latin only"], a:0},
+  {c:"Ch.2 · AI", q:"An AI language model is trained on:", o:["Vast datasets of text","A single textbook","Audio files only","Images only"], a:0},
+  {c:"Ch.2 · AI", q:"An AI language model predicts:", o:["The likelihood of a sequence of words","Blood pressure","Body temperature","Patient age"], a:0},
+  {c:"Ch.2 · AI", q:"ChatGPT was developed by:", o:["OpenAI","Google","IBM","Meta"], a:0},
+  {c:"Ch.2 · AI", q:"ChatGPT utilizes which technique to generate human-like text?", o:["Deep learning","Manual scripting","Barcode scanning","X-ray imaging"], a:0},
+  {c:"Ch.2 · AI", q:"GPT-3 marked a significant leap in:", o:["Language understanding and generation","Image editing","Robotic surgery","Battery life"], a:0},
+  {c:"Ch.2 · AI", q:"GPT-3.5 introduced improvements in:", o:["Context retention and nuanced conversation","Printing speed","Hardware cooling","Screen brightness"], a:0},
+  {c:"Ch.2 · AI", q:"ChatGPT with GPT-4 showcases advanced:", o:["Reasoning, deeper understanding, and creative output","Battery saving","Sound effects","Color filters"], a:0},
+  {c:"Ch.2 · AI", q:"AI moderation as a safety layer is meant to filter:", o:["Harmful, biased, and inappropriate content","Helpful answers","All questions","Correct grammar"], a:0},
+  {c:"Ch.2 · AI", q:"What does RLHF stand for?", o:["Reinforcement Learning from Human Feedback","Rapid Learning for Health Files","Remote Login Health Function","Real-time Logic Health Filter"], a:0},
+  {c:"Ch.2 · AI", q:"Regarding sensitive topics, a safety layer makes AI:", o:["Avoid specialized medical/legal/financial advice and urge professional consultation","Give surgery instructions","Prescribe medication","Diagnose patients"], a:0},
+  {c:"Ch.2 · AI", q:"AI prompts are best described as:", o:["Short, structured text inputs designed to guide AI responses","Long medical reports","Random noise","Hardware components"], a:0},
+  {c:"Ch.2 · AI", q:"Tokens are:", o:["Segments of text fed into and generated by the model","Physical coins","Patient ID cards","Encryption keys"], a:0},
+  {c:"Ch.2 · AI", q:"Prompts are made up of:", o:["Tokens","Pixels","Wires","Cells"], a:0},
+  {c:"Ch.2 · AI", q:"Why are token limits necessary?", o:["Memory and processing constraints dictate efficiency","To charge more money","To slow down nurses","For decoration"], a:0},
+  {c:"Ch.2 · AI", q:"Token limits encourage users to design prompts that are:", o:["Concise and focused","As long as possible","Empty","Written in code"], a:0},
+  {c:"Ch.2 · AI", q:"AI models have limited memory because they have finite:", o:["Context windows","Power cords","Screens","Keyboards"], a:0},
+  {c:"Ch.2 · AI", q:"For longer discussions, AI models require:", o:["Summarization or repetition of key points","Unlimited memory automatically","No input","A reboot every minute"], a:0},
+  {c:"Ch.2 · AI", q:"Why does prompt engineering matter?", o:["It enhances AI's output quality and relevance","It deletes data","It powers the hardware","It replaces nurses"], a:0},
+  {c:"Ch.2 · AI", q:"Balancing detail and brevity in prompts is described as:", o:["Key","Unnecessary","Impossible","Forbidden"], a:0},
+  {c:"Ch.2 · AI", q:"Which is a practical AI application mentioned for healthcare/pharmacy work?", o:["Drafting medical information and policy documentation","Performing surgery","Replacing pharmacists entirely","Diagnosing without a doctor"], a:0},
+  {c:"Ch.2 · AI", q:"'Find all allergy medications available in tablet form' is an example of which prompt type?", o:["Product Search","Order Status Update","Feedback Collection","Health Advice"], a:0},
+
+  // ===== CHAPTER 3: NURSE LEADERSHIP =====
+  {c:"Ch.3 · Leadership", q:"Nurse leadership often includes which qualities?", o:["Encouraging, inspirational, and supportive","Harsh and rigid","Silent and absent","Careless and slow"], a:0},
+  {c:"Ch.3 · Leadership", q:"According to the material, the most important skills for a nurse are:", o:["Willingness, Ability, Agility","Speed, Strength, Stamina","Wealth, Age, Authority","Silence, Speed, Style"], a:0},
+  {c:"Ch.3 · Leadership", q:"Agility allows a nurse leader to:", o:["Implement rapid changes without losing sight of the vision","Avoid all change","Work slower","Ignore the team"], a:0},
+  {c:"Ch.3 · Leadership", q:"A nurse leader is expected to problem solve for issues related to:", o:["Bedside care, patient safety, budget constraints, and staffing","Only paperwork","Only payroll","Only parking"], a:0},
+  {c:"Ch.3 · Leadership", q:"Which is a common barrier to change in nursing?", o:["Individual anxiety or resistance to change","Excellent communication","Unlimited budget","Perfect skills"], a:0},
+  {c:"Ch.3 · Leadership", q:"Which is a common REACTION to change among staff?", o:["Anxiety that they won't be proficient in time","Instant mastery","Total indifference always","Guaranteed promotion"], a:0},
+  {c:"Ch.3 · Leadership", q:"The quote states: 'Healthcare organizations can't change unless ___ change.'", o:["People","Computers","Budgets","Buildings"], a:0},
+  {c:"Ch.3 · Leadership", q:"Which is part of the change management roadmap?", o:["Assessing organizational readiness","Ignoring stakeholders","Skipping training","Hiding milestones"], a:0},
+  {c:"Ch.3 · Leadership", q:"Nurse leadership has the ability to evolve as the nursing industry experiences:", o:["Ongoing changes and shifts","No change ever","Only budget cuts","Only retirements"], a:0},
+  {c:"Ch.3 · Leadership", q:"Which is listed as a driver requiring change strategies in nursing?", o:["New technologies and advances in science","Fewer patients","Less regulation","Permanent staffing"], a:0},
+  {c:"Ch.3 · Leadership", q:"Poor communication when implementing change is considered a:", o:["Common barrier","Common benefit","Required step","Type of medication"], a:0},
+  {c:"Ch.3 · Leadership", q:"'Managing resistance to change and barriers' is part of:", o:["The change management roadmap","A billing process","A discharge summary","A lab order"], a:0},
+  {c:"Ch.3 · Leadership", q:"Leadership that tries to FORCE change instead of nurturing staff is a:", o:["Common barrier","Best practice","Required policy","Safety feature"], a:0},
+  {c:"Ch.3 · Leadership", q:"The change process in nursing is compared to:", o:["A revolving door of constant transition","A locked vault","A straight line","A single event"], a:0},
+  {c:"Ch.3 · Leadership", q:"A nurse leader should be able to:", o:["Perform well under pressure and balance daily challenges","Avoid all responsibility","Work only when easy","Never make decisions"], a:0},
+
+  // ===== CHAPTER 4: ETHICAL, MORAL, LEGAL =====
+  {c:"Ch.4 · Ethics", q:"Which of the following is one of the ethical concepts in nursing?", o:["Justice","Profit","Speed","Marketing"], a:0},
+  {c:"Ch.4 · Ethics", q:"'Doing good' for the patient refers to which ethical concept?", o:["Beneficence","Maleficence","Veracity","Fidelity"], a:0},
+  {c:"Ch.4 · Ethics", q:"'Do no harm' is the principle of:", o:["Non-maleficence","Beneficence","Justice","Autonomy"], a:0},
+  {c:"Ch.4 · Ethics", q:"Telling the truth to patients reflects which ethical concept?", o:["Veracity","Fidelity","Justice","Beneficence"], a:0},
+  {c:"Ch.4 · Ethics", q:"Respecting a patient's right to make their own decisions is:", o:["Autonomy","Accountability","Fidelity","Justice"], a:0},
+  {c:"Ch.4 · Ethics", q:"Keeping promises and being faithful to commitments is:", o:["Fidelity","Veracity","Justice","Autonomy"], a:0},
+  {c:"Ch.4 · Ethics", q:"Security mechanisms help ensure confidential information is only accessible to:", o:["Authorized individuals and entities","Anyone curious","The public","Marketing teams"], a:0},
+  {c:"Ch.4 · Ethics", q:"Privacy is described as the:", o:["End result of security","Start of treatment","Type of audit","Form of payment"], a:0},
+  {c:"Ch.4 · Ethics", q:"How many privacy principles are in the Nationwide Privacy and Security Framework?", o:["8","5","3","12"], a:0},
+  {c:"Ch.4 · Ethics", q:"The principle giving individuals a simple, timely means to access their own health info is:", o:["Individual Access","Collection and Use","Safeguards","Accountability"], a:0},
+  {c:"Ch.4 · Ethics", q:"The principle allowing individuals to dispute and fix errors in their records is:", o:["Correction","Openness","Individual Choice","Safeguards"], a:0},
+  {c:"Ch.4 · Ethics", q:"Policies and technologies affecting individuals should be open and transparent under:", o:["Openness and Transparency","Correction","Accountability","Collection and Use"], a:0},
+  {c:"Ch.4 · Ethics", q:"Giving individuals a reasonable opportunity to make informed decisions about their info is:", o:["Individual Choice","Individual Access","Safeguards","Correction"], a:0},
+  {c:"Ch.4 · Ethics", q:"Information collected only to the extent necessary, never to discriminate, falls under:", o:["Collection and Use","Openness","Accountability","Correction"], a:0},
+  {c:"Ch.4 · Ethics", q:"Ensuring health info is complete, accurate, and up-to-date refers to:", o:["Data Quality and Integrity","Individual Choice","Openness","Safeguards"], a:0},
+  {c:"Ch.4 · Ethics", q:"Protecting info with administrative, technical, and physical measures is the principle of:", o:["Safeguards","Correction","Openness","Individual Access"], a:0},
+  {c:"Ch.4 · Ethics", q:"Monitoring and reporting/mitigating breaches falls under which principle?", o:["Accountability","Individual Choice","Collection and Use","Correction"], a:0},
+  {c:"Ch.4 · Ethics", q:"In the HIT Trust Framework, what is Layer 1?", o:["Risk Management","Usability Features","Physical Safeguards","Policy Foundation"], a:0},
+  {c:"Ch.4 · Ethics", q:"Risk Management (Layer 1) is based on anticipating that:", o:["Something bad will happen","Nothing will fail","Budgets are unlimited","Patients never complain"], a:0},
+  {c:"Ch.4 · Ethics", q:"Layer 2 of the HIT framework is:", o:["Information Assurance Policy","Risk Management","Usability Features","Architectural Safeguards"], a:0},
+  {c:"Ch.4 · Ethics", q:"Layer 3 (Physical Safeguards) standards are prescribed by which law?", o:["HIPAA","DICOM","RA 9262","TCP/IP"], a:0},
+  {c:"Ch.4 · Ethics", q:"Which is one of the four physical safeguard standards under HIPAA?", o:["Facility access controls","Salary management","Marketing controls","Parking controls"], a:0},
+  {c:"Ch.4 · Ethics", q:"Operational Safeguards make up which layer?", o:["Layer 4","Layer 1","Layer 7","Layer 2"], a:0},
+  {c:"Ch.4 · Ethics", q:"HIPAA requires each organization to designate a security official and a:", o:["Privacy official","Marketing officer","Sales lead","Janitor"], a:0},
+  {c:"Ch.4 · Ethics", q:"Regularly reviewing audit logs and access reports is which operational safeguard?", o:["System Activity Review","Sanctions","Consent Management","Training"], a:0},
+  {c:"Ch.4 · Ethics", q:"Penalties for entities that fail to comply with privacy/security rules fall under:", o:["Sanctions","Evaluation","Training","Consent Management"], a:0},
+  {c:"Ch.4 · Ethics", q:"Architectural Safeguards are which layer of the framework?", o:["Layer 5","Layer 1","Layer 3","Layer 7"], a:0},
+  {c:"Ch.4 · Ethics", q:"The system's ability to grow in scale is called:", o:["Scalability","Reliability","Simplicity","Availability"], a:0},
+  {c:"Ch.4 · Ethics", q:"A system's ability to perform consistently is called:", o:["Reliability","Scalability","Interoperability","Availability"], a:0},
+  {c:"Ch.4 · Ethics", q:"The ability of a system to work with other systems is:", o:["Interoperability","Isolation","Simplicity","Reliability"], a:0},
+  {c:"Ch.4 · Ethics", q:"Making information available when needed describes:", o:["Availability","Scalability","Simplicity","Safety"], a:0},
+  {c:"Ch.4 · Ethics", q:"The ability of a system to be less complex is called:", o:["Simplicity","Reliability","Scalability","Availability"], a:0},
+  {c:"Ch.4 · Ethics", q:"A system performing in a separate environment refers to:", o:["Process Isolation","Interoperability","Availability","Simplicity"], a:0},
+  {c:"Ch.4 · Ethics", q:"Security Technology Safeguards are which layer?", o:["Layer 6","Layer 2","Layer 4","Layer 7"], a:0},
+  {c:"Ch.4 · Ethics", q:"Establishing the identity of a person or software before access is:", o:["Person and Entity Authentication","Encryption","Audit Control","Non-repudiation"], a:0},
+  {c:"Ch.4 · Ethics", q:"Allowing only authorized personnel to see certain information is:", o:["Access Control","Encryption","Authentication","Audit Control"], a:0},
+  {c:"Ch.4 · Ethics", q:"Collecting and recording security-relevant events is:", o:["Audit Control","Access Control","Encryption","Non-repudiation"], a:0},
+  {c:"Ch.4 · Ethics", q:"Assurance that data has not been modified except as authorized is:", o:["Data Integrity","Encryption","Authentication","Availability"], a:0},
+  {c:"Ch.4 · Ethics", q:"Proof of authenticity of gathered data is called:", o:["Non-repudiation","Encryption","Scalability","Simplicity"], a:0},
+  {c:"Ch.4 · Ethics", q:"Making data unreadable until unlocked with a proper key is:", o:["Encryption","Authentication","Audit Control","Isolation"], a:0},
+  {c:"Ch.4 · Ethics", q:"Usability Features (Layer 7) include which of the following?", o:["Single Sign-on and Identity Federation","Risk analysis","Sanctions","Encryption"], a:0},
+  {c:"Ch.4 · Ethics", q:"What does HIPAA stand for?", o:["Health Insurance Portability and Accountability Act","Hospital Internal Privacy Accountability Act","Health Information Protection Access Act","Healthcare Insurance Patient Aid Act"], a:0},
+  {c:"Ch.4 · Ethics", q:"The HIPAA Privacy Rule addresses the use and disclosure of:", o:["Protected health information","Hospital budgets","Staff schedules","Building permits"], a:0},
+  {c:"Ch.4 · Ethics", q:"Which is a HIPAA Covered Entity?", o:["Healthcare providers","Newspapers","Grocery stores","Airlines"], a:0},
+  {c:"Ch.4 · Ethics", q:"Entities that pay the cost of medical care (like HMOs) are classified as:", o:["Health Plans","Clearinghouses","Business Associates","Providers"], a:0},
+  {c:"Ch.4 · Ethics", q:"Entities that process nonstandard info into a standard format are:", o:["Healthcare Clearinghouses","Health Plans","Providers","Business Associates"], a:0},
+  {c:"Ch.4 · Ethics", q:"A person/organization using identifiable info to perform functions FOR a covered entity is a:", o:["Business Associate","Health Plan","Clearinghouse","Provider"], a:0},
+  {c:"Ch.4 · Ethics", q:"Which is a permitted use and disclosure under HIPAA?", o:["When required by law","Selling data for profit","Gossiping in elevators","Posting online"], a:0},
+  {c:"Ch.4 · Ethics", q:"The HITECH Act was enacted in what year?", o:["2009","2012","1996","2024"], a:0},
+  {c:"Ch.4 · Ethics", q:"The HITECH Act resulted in significant amendments to which rules?", o:["HIPAA Security and Privacy Rules","Data Privacy Act","Rules of Court","Penal Code"], a:0},
+  {c:"Ch.4 · Ethics", q:"The Data Privacy Act of 2012 is also known as:", o:["RA 10173","RA 9262","RA 11332","RA 7610"], a:0},
+  {c:"Ch.4 · Ethics", q:"The Data Privacy Act of 2012 seeks to protect:", o:["All forms of information — private, personal, or sensitive","Only government files","Only foreign data","Only paper records"], a:0},
+  {c:"Ch.4 · Ethics", q:"Personal information is any information from which:", o:["The identity of an individual is apparent or can be ascertained","Only diseases are listed","Only money is tracked","Nothing can be identified"], a:0},
+  {c:"Ch.4 · Ethics", q:"Information a client gives to his doctor is an example of:", o:["Privileged information","Public record","Government data","Open data"], a:0},
+  {c:"Ch.4 · Ethics", q:"Who is accountable for ensuring compliance with data protection laws?", o:["Data Protection Officer","Head Nurse","Billing Clerk","Receptionist"], a:0},
+  {c:"Ch.4 · Ethics", q:"Processing sensitive personal info is allowed when the data subject has:", o:["Given consent specific to the purpose prior to processing","Refused consent","No knowledge","Left the country"], a:0},
+  {c:"Ch.4 · Ethics", q:"Processing sensitive info is allowed when necessary for purposes of medical treatment carried out by:", o:["A medical practitioner or institution with adequate protection","Any random person","An advertiser","A reporter"], a:0},
+  {c:"Ch.4 · Ethics", q:"The example 'you can't talk about a patient's condition in the elevator' illustrates:", o:["The HIPAA Privacy Rule","Encryption","Scalability","The HITECH Act"], a:0},
+  {c:"Ch.4 · Ethics", q:"Protecting against malicious software requires technical solutions plus:", o:["Policies and procedures for reporting suspected attacks","Ignoring the issue","Removing all computers","Disabling backups"], a:0},
+  {c:"Ch.4 · Ethics", q:"Transmission security requires communicating entities to authenticate each other and:", o:["Encrypt the channel and confirm data integrity","Print everything","Share passwords openly","Disable firewalls"], a:0}
+];
+
+let idx=0, score=0, answered=false;
+const quizArea=document.getElementById('quizArea');
+const pbar=document.getElementById('pbar');
+const pcount=document.getElementById('pcount');
+const pscore=document.getElementById('pscore');
+const LETTERS=['A','B','C','D'];
+
+function render(){
+  const Q=QUESTIONS[idx];
+  answered=false;
+  pbar.style.width=((idx)/QUESTIONS.length*100)+'%';
+  pcount.textContent=`Question ${idx+1} of ${QUESTIONS.length}`;
+  pscore.textContent=score;
+
+  let opts='';
+  Q.o.forEach((t,i)=>{
+    opts+=`<button class="opt" data-i="${i}" onclick="choose(${i})">
+      <span class="letter">${LETTERS[i]}</span><span>${t}</span></button>`;
+  });
+
+  quizArea.innerHTML=`
+    <div class="card">
+      <div class="qtop">
+        <span class="qnum">Q${idx+1}</span>
+        <span class="qchap">${Q.c}</span>
+      </div>
+      <div class="qtext">${Q.q}</div>
+      <div class="opts" id="opts">${opts}</div>
+      <div class="feedback" id="feedback"></div>
+      <button class="next-btn" id="nextBtn" onclick="next()">
+        ${idx===QUESTIONS.length-1?'See My Results 🎀':'Next Question →'}
+      </button>
+    </div>`;
+}
+
+function choose(i){
+  if(answered) return;
+  answered=true;
+  const Q=QUESTIONS[idx];
+  const opts=document.querySelectorAll('.opt');
+  const fb=document.getElementById('feedback');
+  opts.forEach((el,j)=>{
+    el.classList.add('locked');
+    if(j===Q.a) el.classList.add('correct');
+    else if(j===i) el.classList.add('wrong');
+    else el.classList.add('dim');
+  });
+  if(i===Q.a){
+    score++;
+    pscore.textContent=score;
+    fb.className='feedback yay show';
+    fb.innerHTML=pick(['🌟 Yay! Correct!','💖 Perfect!','✨ You got it!','🎉 Nailed it!','🌸 Brilliant!']);
+  }else{
+    fb.className='feedback nay show';
+    fb.innerHTML=`💔 Oops! The correct answer is <u>${LETTERS[Q.a]}. ${Q.o[Q.a]}</u>`;
+  }
+  document.getElementById('nextBtn').classList.add('show');
+}
+
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+
+function next(){
+  if(idx<QUESTIONS.length-1){ idx++; render(); window.scrollTo({top:0,behavior:'smooth'}); }
+  else showResult();
+}
+
+function showResult(){
+  document.getElementById('progressShell').style.display='none';
+  quizArea.innerHTML='';
+  pbar.style.width='100%';
+  const res=document.getElementById('result');
+  res.classList.add('show');
+  document.getElementById('resScore').textContent=score;
+  const pct=Math.round(score/QUESTIONS.length*100);
+  document.getElementById('resPct').textContent=`That's ${pct}% correct!`;
+  let emoji,title,msg;
+  if(pct>=90){emoji='🏆';title='Superstar!';msg='You absolutely aced it! Future top nurse right here. 💕';}
+  else if(pct>=75){emoji='🌟';title='Amazing!';msg='Great work — you really know your stuff!';}
+  else if(pct>=50){emoji='🌸';title='Nice job!';msg='Solid effort! A little more review and you\u2019ll shine.';}
+  else{emoji='🌱';title='Keep going!';msg='Every expert started here. Review and try again — you\u2019ve got this!';}
+  document.getElementById('resEmoji').textContent=emoji;
+  document.getElementById('resTitle').textContent=title;
+  document.getElementById('resMsg').textContent=msg;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function restart(){
+  idx=0;score=0;answered=false;
+  document.getElementById('result').classList.remove('show');
+  document.getElementById('progressShell').style.display='block';
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+render();
+</script>
+</body>
+</html>
