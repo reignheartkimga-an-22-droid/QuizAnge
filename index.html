@@ -194,7 +194,7 @@
       <button class="restart" onclick="restart()">↺ Play Again</button>
     </div>
 
-    <div class="footer">Made for my labs from kim 💕 </div>
+    <div class="footer">Made with 💕 from kim</div>
   </div>
 
 <script>
@@ -349,6 +349,25 @@ const QUESTIONS = [
 ];
 
 let idx=0, score=0, answered=false;
+let LIVE=[];
+
+function shuffle(arr){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+
+function prepare(){
+  LIVE=QUESTIONS.map(Q=>{
+    const correctText=Q.o[Q.a];
+    const opts=shuffle(Q.o);
+    return {c:Q.c, q:Q.q, o:opts, a:opts.indexOf(correctText)};
+  });
+}
+
 const quizArea=document.getElementById('quizArea');
 const pbar=document.getElementById('pbar');
 const pcount=document.getElementById('pcount');
@@ -356,7 +375,7 @@ const pscore=document.getElementById('pscore');
 const LETTERS=['A','B','C','D'];
 
 function render(){
-  const Q=QUESTIONS[idx];
+  const Q=LIVE[idx];
   answered=false;
   pbar.style.width=((idx)/QUESTIONS.length*100)+'%';
   pcount.textContent=`Question ${idx+1} of ${QUESTIONS.length}`;
@@ -386,7 +405,7 @@ function render(){
 function choose(i){
   if(answered) return;
   answered=true;
-  const Q=QUESTIONS[idx];
+  const Q=LIVE[idx];
   const opts=document.querySelectorAll('.opt');
   const fb=document.getElementById('feedback');
   opts.forEach((el,j)=>{
@@ -436,12 +455,14 @@ function showResult(){
 
 function restart(){
   idx=0;score=0;answered=false;
+  prepare();
   document.getElementById('result').classList.remove('show');
   document.getElementById('progressShell').style.display='block';
   render();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+prepare();
 render();
 </script>
 </body>
